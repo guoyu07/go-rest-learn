@@ -67,6 +67,18 @@ Here:
 	}
 }
 
+func unhex(c byte) byte {
+	switch {
+	case '0' <= c && c <= '9':
+		return c - '0'
+	case 'a' <= c && c <= 'f':
+		return c - 'a' + 10
+	case 'A' <= c && c <= 'F':
+		return c - 'A' + 10
+	}
+	return 0
+}
+
 func main() {
 	// define variables
 
@@ -152,5 +164,69 @@ func main() {
 	}
 
 	myfunc()
+
+	for j := 0; j < 10; j++ {
+		fmt.Printf("j=%d\n", j)
+	}
+
+	j := 0
+	for j < 10 {
+		fmt.Printf("j=%d\n", j)
+		j++
+	}
+
+	j = 0
+	for {
+		fmt.Printf("j = %d\n", j)
+		j++
+		if j > 10 {
+			break
+		}
+	}
+
+	list := []string{"a", "b", "c", "d"}
+	for k, v := range list {
+		fmt.Printf("%d->%s\n", k, v)
+	}
+
+	for pos, char := range "hello" {
+		fmt.Printf("%d->%c\n", pos, char)
+	}
+
+	res := unhex('8')
+	fmt.Printf("res = %d\n", res)
+
+	// fallthrough
+	i := 0
+	switch i {
+	case 0:
+		fallthrough //fallthrough make case connected.
+	case 1:
+		fmt.Printf("I'm in case 1.\n")
+	default:
+		fmt.Printf("I'm in default.\n")
+	}
+
+	i = 1
+	switch i {
+	case 1, 2, 3, 4:
+		fmt.Printf("Ok, you are in my list.\n")
+	}
+
+	println("hello, println.\n")
+
+	// bubble sort
+	arr := []int{1, 3, 2, 4}
+	l := len(arr)
+	for i := 0; i < l; i++ {
+		for j := i + 1; j < l; j++ {
+			if arr[i] > arr[j] {
+				arr[i], arr[j] = arr[j], arr[i]
+			}
+		}
+	}
+	for _, v := range arr {
+		println(v)
+	}
 
 }
