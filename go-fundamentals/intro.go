@@ -229,4 +229,81 @@ func main() {
 		println(v)
 	}
 
+	var array [10]int
+	for i := 0; i < 10; i++ {
+		array[i] = 10 - i
+	}
+
+	for _, v := range array {
+		println(v)
+	}
+
+	//向函数传递数组，是值拷贝，而不是引用拷贝。。。。
+	arr1 := [...]int{1, 2, 3, 4}
+	for _, v := range arr1 {
+		println(v)
+	}
+
+	sl := make([]int, 10)
+	for i := 0; i < len(sl); i++ {
+		println(sl[i])
+	}
+
+	sl2 := arr1[2:3]
+	println(len(sl2))
+	println(cap(sl2))
+
+	t0 := arr1[:]
+	t1 := append(t0, 2)
+	t2 := append(t1, 3, 4, 5)
+
+	t3 := append(t2, t0...)
+
+	for _, v := range t3 {
+		println(v)
+	}
+
+	// test copy
+	var y0 = []int{0, 2, 3}
+	var y1 = make([]int, 6)
+
+	_ = copy(y1, y0[0:])
+	fmt.Printf("y2:\n")
+	for _, v := range y1 {
+		println(v)
+	}
+
+	// test map
+	monthdays := map[string]int{
+		"Jan": 31, "Feb": 28, "Mar": 31,
+		"Apr": 30, "May": 31, "Jun": 30,
+		"Jul": 31, "Aug": 31, "Sep": 30,
+		"Oct": 31, "Nov": 30, "Dec": 31, // comma is necessary
+	}
+
+	// calculate how many days in a year
+	days := 0
+	for _, n := range monthdays {
+		days += n
+	}
+	fmt.Printf("days=%d\n", days)
+
+	// check if key exists
+	var value int
+	var present bool
+	value, present = monthdays["Jan"]
+	v, ok := monthdays["Ok"]
+
+	if ok == false {
+		println("Good!")
+	} else {
+		println(v)
+	}
+	if present {
+		println("Good!")
+		println(value)
+	}
+
+	// delete a key/value in a map
+	delete(monthdays, "Jan")
 }
